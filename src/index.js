@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
 import throttle from 'lodash.throttle';
 import raf from 'raf';
 import getDisplayName from 'react-display-name';
@@ -112,7 +113,8 @@ export function createScrollingComponent(WrappedComponent) {
     }
 
     componentDidMount() {
-      this.container = this.wrappedInstance.current;
+      // eslint-disable-next-line react/no-find-dom-node
+      this.container = findDOMNode(this.wrappedInstance.current);
 
       if (this.container && typeof this.container.addEventListener === 'function') {
         this.container.addEventListener('dragover', this.handleEvent);
